@@ -156,7 +156,7 @@
         addAsync(values, callback);
       }
       var added = [],
-          notCreate = false;
+      notCreate = false;
       if (values[0] === undefined){
         values = [values];
       }
@@ -186,8 +186,8 @@
       items = items.concat(self.add(valuesToAdd));
       if (values.length > 0) {
         setTimeout(function() {
-            addAsync(values, callback, items);
-            }, 10);
+          addAsync(values, callback, items);
+        }, 10);
       } else {
         self.update();
         callback(items);
@@ -244,13 +244,13 @@
      */
     this.sort = function(valueName, options) {
       var length = self.items.length,
-          value = null,
-          target = valueName.target || valueName.srcElement, /* IE have srcElement */
-          sorting = '',
-          isAsc = false,
-          asc = 'asc',
-          desc = 'desc',
-          options = options || {};
+      value = null,
+      target = valueName.target || valueName.srcElement, /* IE have srcElement */
+      sorting = '',
+      isAsc = false,
+      asc = 'asc',
+      desc = 'desc',
+      options = options || {};
 
       if (target === undefined) {
         value = valueName;
@@ -281,7 +281,7 @@
         options.sortFunction = function(a, b) {
           if( a.values()[value] == null || a.values()[value] == null)
             return
-              return h.sorter.alphanum(a.values()[value].toLowerCase(), b.values()[value].toLowerCase(), isAsc);
+          return h.sorter.alphanum(a.values()[value].toLowerCase(), b.values()[value].toLowerCase(), isAsc);
         };
       }
       self.items.sort(options.sortFunction);
@@ -296,51 +296,51 @@
     this.search = function(searchString, columns) {
       self.i = 1; // Reset paging
       var matching = [],
-          found,
-          item,
-          text,
-          values,
-          is,
-          columns = (columns === undefined) ? self.items[0].values() : columns,
-          searchString = (searchString === undefined) ? "" : searchString,
-          target = searchString.target || searchString.srcElement; /* IE have srcElement */
+      found,
+      item,
+      text,
+      values,
+      is,
+      columns = (columns === undefined) ? self.items[0].values() : columns,
+      searchString = (searchString === undefined) ? "" : searchString,
+      target = searchString.target || searchString.srcElement; /* IE have srcElement */
 
-          searchString = (target === undefined) ? (""+searchString).toLowerCase() : ""+target.value.toLowerCase();
-          is = self.items;
-          // Escape regular expression characters
-          searchString = searchString.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+      searchString = (target === undefined) ? (""+searchString).toLowerCase() : ""+target.value.toLowerCase();
+      is = self.items;
+      // Escape regular expression characters
+      searchString = searchString.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
-            templater.clear();
-            if (searchString === "" ) {
-              reset.search();
-              self.searched = false;
-              self.update();
-            } else {
-              self.searched = true;
+        templater.clear();
+        if (searchString === "" ) {
+          reset.search();
+          self.searched = false;
+          self.update();
+        } else {
+          self.searched = true;
 
-              for (var k = 0, kl = is.length; k < kl; k++) {
-                found = false;
-                item = is[k];
-                values = item.values();
+          for (var k = 0, kl = is.length; k < kl; k++) {
+            found = false;
+            item = is[k];
+            values = item.values();
 
-                for(var j in columns) {
-                  if(values.hasOwnProperty(j) && columns[j] !== null) {
-                    text = (values[j] != null) ? values[j].toString().toLowerCase() : "";
-                    if ((searchString !== "") && (text.search(searchString) > -1)) {
-                      found = true;
-                    }
-                  }
-                }
-                if (found) {
-                  item.found = true;
-                  matching.push(item);
-                } else {
-                  item.found = false;
+            for(var j in columns) {
+              if(values.hasOwnProperty(j) && columns[j] !== null) {
+                text = (values[j] != null) ? values[j].toString().toLowerCase() : "";
+                if ((searchString !== "") && (text.search(searchString) > -1)) {
+                  found = true;
                 }
               }
-              self.update();
             }
-            return self.visibleItems;
+            if (found) {
+              item.found = true;
+              matching.push(item);
+            } else {
+              item.found = false;
+            }
+          }
+          self.update();
+        }
+        return self.visibleItems;
     };
 
     /*
@@ -395,26 +395,26 @@
     };
 
     var reset = {
-filter: function() {
-          var is = self.items,
-          il = is.length;
-          while (il--) {
-            is[il].filtered = false;
-          }
-        },
-search: function() {
-          var is = self.items,
-          il = is.length;
-          while (il--) {
-            is[il].found = false;
-          }
+      filter: function() {
+        var is = self.items,
+        il = is.length;
+        while (il--) {
+          is[il].filtered = false;
         }
+      },
+      search: function() {
+        var is = self.items,
+        il = is.length;
+        while (il--) {
+          is[il].found = false;
+        }
+      }
     };
 
 
     this.update = function() {
       var is = self.items,
-          il = is.length;
+      il = is.length;
 
       self.visibleItems = [];
       self.matchingItems = [];
@@ -436,7 +436,7 @@ search: function() {
 
     Item = function(initValues, element, notCreate) {
       var item = this,
-          values = {};
+      values = {};
 
       this.found = false; // Show if list.searched == true and this.found == true
       this.filtered = false;// Show if list.filtered == true and this.filtered == true
@@ -474,11 +474,11 @@ search: function() {
       };
       this.matching = function() {
         return (
-            (self.filtered && self.searched && item.found && item.filtered) ||
-            (self.filtered && !self.searched && item.filtered) ||
-            (!self.filtered && self.searched && item.found) ||
-            (!self.filtered && !self.searched)
-            );
+          (self.filtered && self.searched && item.found && item.filtered) ||
+          (self.filtered && !self.searched && item.filtered) ||
+          (!self.filtered && self.searched && item.found) ||
+          (!self.filtered && !self.searched)
+        );
       };
       this.visible = function() {
         return (item.elm.parentNode) ? true : false;
@@ -503,145 +503,145 @@ search: function() {
     init.start(values, options);
   };
 
-      List.prototype.templateEngines = {};
-      List.prototype.plugins = {};
+  List.prototype.templateEngines = {};
+  List.prototype.plugins = {};
 
-      List.prototype.templateEngines.standard = function(list, settings) {
-        var listSource = h.getByClass(settings.listClass, list.listContainer, true),
-            itemSource = getItemSource(settings.item),
-            templater = this;
+  List.prototype.templateEngines.standard = function(list, settings) {
+    var listSource = h.getByClass(settings.listClass, list.listContainer, true),
+    itemSource = getItemSource(settings.item),
+    templater = this;
 
-        function getItemSource(item) {
-          if (item === undefined) {
-            var nodes = listSource.childNodes,
-                items = [];
+    function getItemSource(item) {
+      if (item === undefined) {
+        var nodes = listSource.childNodes,
+        items = [];
 
-            for (var i = 0, il = nodes.length; i < il; i++) {
-              // Only textnodes have a data attribute
-              if (nodes[i].data === undefined) {
-                return nodes[i];
-              }
-            }
-            return null;
-          } else if (item.indexOf("<") !== -1) { // Try create html element of list, do not work for tables!!
-            var div = document.createElement('div');
-            div.innerHTML = item;
-            return div.firstChild;
-          } else {
-            return document.getElementById(settings.item);
+        for (var i = 0, il = nodes.length; i < il; i++) {
+          // Only textnodes have a data attribute
+          if (nodes[i].data === undefined) {
+            return nodes[i];
           }
         }
+        return null;
+      } else if (item.indexOf("<") !== -1) { // Try create html element of list, do not work for tables!!
+        var div = document.createElement('div');
+        div.innerHTML = item;
+        return div.firstChild;
+      } else {
+        return document.getElementById(settings.item);
+      }
+    }
 
-        var ensure = {
-created: function(item) {
-           if (item.elm === undefined) {
-             templater.create(item);
-           }
-         }
-        };
+    var ensure = {
+      created: function(item) {
+        if (item.elm === undefined) {
+          templater.create(item);
+        }
+      }
+    };
 
-        /* Get values from element */
-        this.get = function(item, valueNames) {
-          ensure.created(item);
-          var values = {};
-          for(var i = 0, il = valueNames.length; i < il; i++) {
-            var elm = h.getByClass(valueNames[i], item.elm, true);
-            values[valueNames[i]] = elm ? elm.innerHTML : "";
+    /* Get values from element */
+    this.get = function(item, valueNames) {
+      ensure.created(item);
+      var values = {};
+      for(var i = 0, il = valueNames.length; i < il; i++) {
+        var elm = h.getByClass(valueNames[i], item.elm, true);
+        values[valueNames[i]] = elm ? elm.innerHTML : "";
+      }
+      return values;
+    };
+
+    /* Sets values at element */
+    this.set = function(item, values) {
+      ensure.created(item);
+      for(var v in values) {
+        if (values.hasOwnProperty(v)) {
+          // TODO speed up if possible
+          var elm = h.getByClass(v, item.elm, true);
+          if (elm) {
+            elm.innerHTML = values[v];
           }
-          return values;
-        };
+        }
+      }
+    };
 
-        /* Sets values at element */
-        this.set = function(item, values) {
-          ensure.created(item);
-          for(var v in values) {
-            if (values.hasOwnProperty(v)) {
-              // TODO speed up if possible
-              var elm = h.getByClass(v, item.elm, true);
-              if (elm) {
-                elm.innerHTML = values[v];
-              }
-            }
-          }
-        };
-
-        this.create = function(item) {
-          if (item.elm !== undefined) {
-            return;
-          }
-          /* If item source does not exists, use the first item in list as
-             source for new items */
-          var newItem = itemSource.cloneNode(true);
-          newItem.id = "";
-          item.elm = newItem;
-          templater.set(item, item.values());
-        };
-        this.remove = function(item) {
-          listSource.removeChild(item.elm);
-        };
-        this.show = function(item) {
-          ensure.created(item);
-          listSource.appendChild(item.elm);
-        };
-        this.hide = function(item) {
-          if (item.elm !== undefined && item.elm.parentNode === listSource) {
-            listSource.removeChild(item.elm);
-          }
-        };
-        this.clear = function() {
-          /* .innerHTML = ''; fucks up IE */
-          if (listSource.hasChildNodes()) {
-            while (listSource.childNodes.length >= 1)
-            {
-              listSource.removeChild(listSource.firstChild);
-            }
-          }
-        };
-      };
+    this.create = function(item) {
+      if (item.elm !== undefined) {
+        return;
+      }
+      /* If item source does not exists, use the first item in list as
+         source for new items */
+      var newItem = itemSource.cloneNode(true);
+      newItem.id = "";
+      item.elm = newItem;
+      templater.set(item, item.values());
+    };
+    this.remove = function(item) {
+      listSource.removeChild(item.elm);
+    };
+    this.show = function(item) {
+      ensure.created(item);
+      listSource.appendChild(item.elm);
+    };
+    this.hide = function(item) {
+      if (item.elm !== undefined && item.elm.parentNode === listSource) {
+        listSource.removeChild(item.elm);
+      }
+    };
+    this.clear = function() {
+      /* .innerHTML = ''; fucks up IE */
+      if (listSource.hasChildNodes()) {
+        while (listSource.childNodes.length >= 1)
+        {
+          listSource.removeChild(listSource.firstChild);
+        }
+      }
+    };
+  };
 
 
-      /*
-       * These helper functions are not written by List.js author Jonny (they may have been
-       * adjusted, thought).
-       */
-          h = {
-            /*
-             * Cross browser getElementsByClassName, which uses native
-             * if it exists. Modified version of Dustin Diaz function:
-             * http://www.dustindiaz.com/getelementsbyclass
-             */
-            getByClass: (function() {
-              if (document.getElementsByClassName) {
-                return function(searchClass,node,single) {
-                  if (single) {
-                    return node.getElementsByClassName(searchClass)[0];
-                  } else {
-                    return node.getElementsByClassName(searchClass);
-                  }
-                };
-              } else {
-                return function(searchClass,node,single) {
-                  var classElements = [],
-                  tag = '*';
-                  if (node == null) {
-                    node = document;
-                  }
-                  var els = node.getElementsByTagName(tag);
-                  var elsLen = els.length;
-                  var pattern = new RegExp("(^|\\s)"+searchClass+"(\\s|$)");
-                  for (var i = 0, j = 0; i < elsLen; i++) {
-                    if ( pattern.test(els[i].className) ) {
-                      if (single) {
-                        return els[i];
-                      } else {
-                        classElements[j] = els[i];
-                        j++;
-                      }
-                    }
-                  }
-                  return classElements;
-                };
-              }
+  /*
+   * These helper functions are not written by List.js author Jonny (they may have been
+   * adjusted, thought).
+   */
+  h = {
+    /*
+     * Cross browser getElementsByClassName, which uses native
+     * if it exists. Modified version of Dustin Diaz function:
+     * http://www.dustindiaz.com/getelementsbyclass
+     */
+getByClass: (function() {
+             if (document.getElementsByClassName) {
+             return function(searchClass,node,single) {
+             if (single) {
+             return node.getElementsByClassName(searchClass)[0];
+             } else {
+             return node.getElementsByClassName(searchClass);
+             }
+             };
+             } else {
+             return function(searchClass,node,single) {
+             var classElements = [],
+             tag = '*';
+             if (node == null) {
+             node = document;
+             }
+             var els = node.getElementsByTagName(tag);
+             var elsLen = els.length;
+             var pattern = new RegExp("(^|\\s)"+searchClass+"(\\s|$)");
+             for (var i = 0, j = 0; i < elsLen; i++) {
+             if ( pattern.test(els[i].className) ) {
+               if (single) {
+                 return els[i];
+               } else {
+                 classElements[j] = els[i];
+                 j++;
+               }
+             }
+             }
+             return classElements;
+             };
+             }
             })(),
             /* (elm, 'event' callback) Source: http://net.tutsplus.com/tutorials/javascript-ajax/javascript-from-null-cross-browser-event-binding/ */
             addEvent: (function( window, document ) {
@@ -770,8 +770,8 @@ created: function(item) {
                 return tz;
               }
             }
-          };
+};
 
-          window.List = List;
-          window.ListJsHelpers = h;
+window.List = List;
+window.ListJsHelpers = h;
 })(window);
